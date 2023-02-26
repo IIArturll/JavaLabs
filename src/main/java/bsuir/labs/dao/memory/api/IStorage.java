@@ -9,4 +9,6 @@ public interface IStorage {
     void save(InputDTO inputDTO, ResultDTO resultDTO);
 
     Map<InputDTO, ResultDTO> getAll();
+
+    void saveAll(Map<InputDTO,ResultDTO> map);
 }

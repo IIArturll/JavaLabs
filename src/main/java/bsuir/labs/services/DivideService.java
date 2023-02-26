@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DivideService implements IDivide {
@@ -21,6 +23,7 @@ public class DivideService implements IDivide {
 
     @Autowired
     private ICounter counter;
+
     @Override
     public ResultDTO get(InputDTO inputDTO) {
         logger.info("enter in divide service method get");
@@ -29,7 +32,7 @@ public class DivideService implements IDivide {
         Double divisor = inputDTO.getDivisor();
         Long total = (long) (divisible / divisor);
         Long remains = (long) (divisible % divisor);
-        logger.info("Return resultDTO");
+        logger.info("Return ResultDTO");
         return new ResultDTO(total, remains);
     }
 
@@ -44,6 +47,7 @@ public class DivideService implements IDivide {
     public List<SourceAndResultDTO> getAll() {
         logger.info("enter in divide service getAll method");
         counter.increment();
+        logger.info("Return List<ResultDTO>");
         return storage.getAll().entrySet().stream().
                 map((entry) ->
                         new SourceAndResultDTO(
@@ -52,6 +56,17 @@ public class DivideService implements IDivide {
                                 entry.getValue().getTotal(),
                                 entry.getValue().getRemains()))
                 .toList();
+    }
+
+    @Override
+    public void saveAll(List<InputDTO> list) {
+        logger.info("enter in divide service saveAll method");
+        counter.increment();
+        Map<InputDTO, ResultDTO> map = new HashMap<>();
+        list.forEach(dto -> map.put(
+                new InputDTO(dto.getDivisible(), dto.getDivisor()),
+                get(dto)));
+        storage.saveAll(map);
     }
 
     @Override

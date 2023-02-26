@@ -26,4 +26,9 @@ public class Storage implements IStorage {
     public Map<InputDTO, ResultDTO> getAll() {
         return Collections.unmodifiableMap(storage);
     }
+
+    @Override
+    public void saveAll(Map<InputDTO, ResultDTO> map) {
+        storage.putAll(map);
+    }
 }

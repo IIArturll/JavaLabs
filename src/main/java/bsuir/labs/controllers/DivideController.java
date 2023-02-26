@@ -42,9 +42,16 @@ public class DivideController {
         return ResponseEntity.status(200).body(service.getAll());
     }
 
-    @GetMapping(value = "count")
+    @GetMapping(value = "/count")
     public ResponseEntity<Long> getCount() {
         logger.info("enter in get point getCount method");
         return ResponseEntity.status(200).body(service.getCount());
+    }
+
+    @PostMapping(value = "/all")
+    public ResponseEntity<?> saveAll(@Valid @RequestBody List<InputDTO> list) {
+        logger.info("enter in get point saveAll method");
+        service.saveAll(list);
+        return ResponseEntity.status(201).build();
     }
 }
