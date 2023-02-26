@@ -23,4 +23,14 @@ public class RestExceptionHandler {
     public ResponseEntity<SingleErrorResponse> SingleExHandle(SingleErrorResponse e) {
         return ResponseEntity.status(400).body(e);
     }
+
+    @ExceptionHandler(value = {NullPointerException.class})
+    public ResponseEntity<SingleErrorResponse> npe(NullPointerException e){
+        return ResponseEntity.status(500).body(new SingleErrorResponse("server error","npe"));
+    }
+    @ExceptionHandler(value = {Throwable.class})
+    public ResponseEntity<SingleErrorResponse> all(Throwable e){
+        return ResponseEntity.status(500).body(
+                new SingleErrorResponse("server error","e"));
+    }
 }

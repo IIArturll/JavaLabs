@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 @RestController
@@ -32,7 +33,8 @@ public class DivideController {
     @PostMapping()
     public ResponseEntity<?> save(@Valid @RequestBody InputDTO inputDTO) {
         logger.info("enter in post pint save");
-        service.save(inputDTO);
+        CompletableFuture.runAsync(() -> service.save(inputDTO));
+        logger.info("skip saving");
         return ResponseEntity.status(201).build();
     }
 
@@ -49,9 +51,10 @@ public class DivideController {
     }
 
     @PostMapping(value = "/all")
-    public ResponseEntity<?> saveAll(@Valid @RequestBody List<InputDTO> list) {
+    public ResponseEntity<?> saveAll(@Valid @RequestBody List<InputDTO> list) throws InterruptedException {
         logger.info("enter in get point saveAll method");
-        service.saveAll(list);
+        CompletableFuture.runAsync(() -> service.saveAll(list));
+        logger.info("skip saving");
         return ResponseEntity.status(201).build();
     }
 }

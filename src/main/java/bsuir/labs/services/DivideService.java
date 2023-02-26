@@ -45,7 +45,8 @@ public class DivideService implements IDivide {
     public void save(InputDTO inputDTO) {
         logger.info("enter in divide service save method ");
         counter.increment();
-        storage.save(inputDTO, get(inputDTO)); //memory
+        //storage.save(inputDTO, get(inputDTO)); //memory
+        logger.info("save in data base value");
         repository.save(new SourceAndResultEntity(inputDTO, get(inputDTO))); //db
     }
 
@@ -63,6 +64,7 @@ public class DivideService implements IDivide {
 //                                entry.getValue().getRemains()))
 //                .toList();
         List<SourceAndResultDTO> list=new ArrayList<>();
+        logger.info("read from data base");
         repository.findAll().forEach(entity -> list.add(new SourceAndResultDTO(
                 entity.getInputDTO(),entity.getResultDTO())));
         return list;
@@ -72,12 +74,13 @@ public class DivideService implements IDivide {
     public void saveAll(List<InputDTO> list) {
         logger.info("enter in divide service saveAll method");
         counter.increment();
-        Map<InputDTO, ResultDTO> map = new HashMap<>();
-        list.forEach(dto -> map.put(
-                new InputDTO(dto.getDivisible(), dto.getDivisor()),
-                get(dto)));
-        storage.saveAll(map);
+//        Map<InputDTO, ResultDTO> map = new HashMap<>();
+//        list.forEach(dto -> map.put(
+//                new InputDTO(dto.getDivisible(), dto.getDivisor()),
+//                get(dto)));
+//        storage.saveAll(map);
         List<SourceAndResultEntity> entities = list.stream().map(SourceAndResultEntity::new).toList();
+        logger.info("save list of values in data base");
         repository.saveAll(entities);
     }
 
