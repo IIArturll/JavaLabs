@@ -1,7 +1,9 @@
 package bsuir.labs.core.dtos;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Objects;
+@JsonIgnoreProperties({"result"})
 public class SourceAndResultDTO {
     private Double divisible;
     private Double divisor;
@@ -9,6 +11,13 @@ public class SourceAndResultDTO {
     private Long remains;
 
     public SourceAndResultDTO() {
+    }
+
+    public SourceAndResultDTO(InputDTO inputDTO) {
+        this.divisible = inputDTO.getDivisible();
+        this.divisor = inputDTO.getDivisor();
+        this.total = (long) (divisible / divisor);
+        this.remains = (long) (divisible % divisor);
     }
 
     public SourceAndResultDTO(Double divisible, Double divisor, Long total, Long remains) {
@@ -48,6 +57,10 @@ public class SourceAndResultDTO {
 
     public void setRemains(Long remains) {
         this.remains = remains;
+    }
+
+    public ResultDTO getResult() {
+        return new ResultDTO(total, remains);
     }
 
     @Override

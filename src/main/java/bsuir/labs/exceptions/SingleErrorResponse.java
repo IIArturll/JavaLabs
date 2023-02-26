@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.function.Supplier;
+
 @JsonPropertyOrder({"logref", "message"})
-public class SingleErrorResponse {
+@JsonIgnoreProperties(value = {"cause", "localizedMessage", "stackTrace","suppressed"})
+public class SingleErrorResponse extends Exception {
     @JsonProperty(value = "logref")
     private String logref;
     @JsonProperty("message")

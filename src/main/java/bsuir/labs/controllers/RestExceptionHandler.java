@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class RestExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<?> response(MethodArgumentNotValidException e) {
         logger.error("validation error");
         return ResponseEntity.status(400).body(new SingleErrorResponse("err",
                 "divisor - " + e.getFieldError().getDefaultMessage()));
+    }
+
+    @ExceptionHandler(value = {SingleErrorResponse.class})
+    public ResponseEntity<SingleErrorResponse> SingleExHandle(SingleErrorResponse e) {
+        return ResponseEntity.status(400).body(e);
     }
 }
