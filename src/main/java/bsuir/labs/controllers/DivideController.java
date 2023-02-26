@@ -42,4 +42,9 @@ public class DivideController {
         return ResponseEntity.status(200).body(service.getAll());
     }
 
+    @GetMapping(value = "count")
+    public ResponseEntity<Long> getCount() {
+        logger.info("enter in get point getCount method");
+        return ResponseEntity.status(200).body(service.getCount());
+    }
 }

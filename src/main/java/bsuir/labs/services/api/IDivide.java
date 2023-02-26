@@ -12,5 +12,7 @@ public interface IDivide {
     void save(InputDTO inputDTO);
 
     List<SourceAndResultDTO> getAll();
+
+    Long getCount();
 }
 
