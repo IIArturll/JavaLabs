@@ -2,9 +2,10 @@ package bsuir.labs.core.dtos;
 
 import bsuir.labs.annotation.NotZero;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class InputDTO {
+public class InputDTO implements Serializable {
     private Double divisible;
     @NotZero
     private Double divisor;

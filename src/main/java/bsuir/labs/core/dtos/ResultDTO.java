@@ -1,8 +1,9 @@
 package bsuir.labs.core.dtos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ResultDTO {
+public class ResultDTO implements Serializable {
     private Long total;
     private Long remains;
 
