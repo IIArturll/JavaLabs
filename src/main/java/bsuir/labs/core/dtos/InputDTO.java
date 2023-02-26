@@ -1,10 +1,12 @@
 package bsuir.labs.core.dtos;
 
+import bsuir.labs.annotation.NotZero;
+
 import java.util.Objects;
 
 public class InputDTO {
-
     private Double divisible;
+    @NotZero
     private Double divisor;
 
     public InputDTO() {
